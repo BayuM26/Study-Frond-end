@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Form World</title>
+        <style>
+            .contents{
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                border: 1px solid black;
+                border-width:2px;
+                padding : 8px;
+            }
+ 
+            .form-element{
+                margin: 8px;
+                align-items: left;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="contents">
+            <h2 align="center"><b>Input Event Form</b></h2>
+            <div class="formContent">
+                <form id="formDataDiri" autocomplete="off">
+                    <div class="form-element" id="fieldName">
+                        <label for="nama">Nama Panggilan:</label><br>
+                        <input id="inputNamaPanggilan" type="text" name="nama" placeholder="Nama panggilan Anda"  maxlength="15"><br>
+                        <label id="notifikasiSisaKarakter">Sisa karakter : <span id="sisaKarakter"></span></label>
+                    </div>
+                    <div class="form-element" id="fieldCopy">
+                        <label for="copy"><i>Copy</i> tulisan ini:</label><br>
+                        <input id="inputCopy" type="text" name="copy" value="Hello World!" disabled><br>
+                    </div>
+                    <div class="form-element" id="fieldPaste">
+                        <label for="paste"><i>Paste</i> tulisan di sini:</label><br>
+                        <input id="inputPaste" type="text" name="paste" placeholder="Paste sesuatu di sini"><br>
+                    </div>
+                    <div class="form-element" id="fieldCaptcha">
+                        <label for="captcha">Tulis <i>captcha</i> berikut:</label><br>
+                        <img src="https://i.ibb.co/yy59QPB/Captcha.png" alt="Captcha"><br>
+                        <input id="inputCaptcha" type="text" name="captcha" placeholder="Tulis captcha di sini"><br>
+                        <p>Tekan Enter pada keyboard jika sudah selesai menulis <i>captcha</i></p>
+                    </div>
+                    <div class="form-element" align= "center">
+                        <input id="submitButton" type="submit" value="Submit Data" disabled>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <script>
+            // event untuk menampilkan jummlah maxlength
+                document.addEventListener('DOMContentLoaded', function (){
+                    const inputMaxLengthOnLoad = document.getElementById("inputNamaPanggilan").maxLength;
+                    document.getElementById("sisaKarakter").innerText = inputMaxLengthOnLoad;
+                    
+                    document.getElementById("notifikasiSisaKarakter").style.visibility = "hidden";
+                }); 
+            // end event untuk menampilkan jummlah maxlength
+
+            // event input
+                document.getElementById("inputNamaPanggilan").addEventListener("input", function(){
+                    // pembuatan variabel
+                        const jumlahkaratkerdiketik = document.getElementById("inputNamaPanggilan").value.length;
+                        const jumlahkaraktermaksimal = document.getElementById("inputNamaPanggilan").maxLength;
+                    // end pembuatan variabel
+
+                    console.log(jumlahkaratkerdiketik,jumlahkaraktermaksimal);
+
+                    // perhitungan kata
+                        const sisaKarakter = jumlahkaraktermaksimal - jumlahkaratkerdiketik;
+                    // end perhitungan kata
+
+                    // mengisi sisa karakter
+                        document.getElementById("sisaKarakter").innerText = sisaKarakter;
+                    // end mengisi sisa karakter
+
+                    if(sisaKarakter == 0){
+                        document.getElementById("sisaKarakter").innerText = "batas maksimal tercapai!" ;
+                    }else if(sisaKarakter <= 5){
+                        document.getElementById("notifikasiSisaKarakter").style.color = "red";
+                    }else{
+                        document.getElementById("notifikasiSisaKarakter").style.color = "black";
+                    }             
+                });
+            // end event input
+
+            // event focus untuk menampilkan sisa karakter ketika mengisi nama panggilan
+                document.getElementById("inputNamaPanggilan").addEventListener("focus", function() {
+                document.getElementById("notifikasiSisaKarakter").style.visibility = null;        
+            });
+            // end event focus untuk menampilkan sisa karakter ketika mengisi nama panggilan
+
+            // event blur untuk menghilangkan sisak akrakter ketika sedang tidak mengisi nama Panggilan
+                document.getElementById("inputNamaPanggilan").addEventListener("blur", function() {
+                document.getElementById("notifikasiSisaKarakter").style.visibility = "hidden";
+            });
+            // end event blur untuk menghilangkan sisak akrakter ketika sedang tidak mengisi nama Panggilan
+            
+            // event captcha
+                document.getElementById("inputCaptcha").addEventListener("change", function() {
+                    const captcha = document.getElementById("inputCaptcha").value;
+                    const btn = document.getElementById("submitButton");
+
+                    if(captcha === "PRNU"){
+                        btn.removeAttribute("disabled");
+                    }else{
+                        btn.setAttribute("disabled","disabled");
+                    }
+                });
+            // end event capcha
+
+            // event copy
+                document.getElementById("inputCopy").addEventListener("copy", function(){
+                    alert("Copy berhasil");
+                    console.log("copyyyyyyyyyyyyyyyyy");
+                });
+            // end event copy
+
+            // event paste
+                document.getElementById("inputPaste").addEventListener("paste", function(){
+                    alert("paste berhasil");
+                    console.log("pasteeeeeeeeeeeeeeeeeee");
+                });
+            // end event paste
+        </script>
+    </body>
+</html>

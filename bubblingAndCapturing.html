@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bubbeling</title>
+
+    <style>
+        body * {
+          margin: 8px;
+          padding: 5px;
+          border: 1px solid black;
+          border-width:2px;
+          width: 60%;
+          }
+      </style>
+</head>
+<body>
+    <div onclick="alert('Langit')" align="center" id="langit">langit
+        <div onclick="alert('Luar')" align="center" id="luar">luar
+            <div onclick="alert('Tengah')" align="center" id="tengah">tengah
+                <div onclick="alert('dalam')" align="center" id="dalam">dalam
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    const divs = document.getElementsByTagName('div');
+
+    for (let n of divs) {
+        n.addEventListener('click',function() {
+            alert("ELEMENT "+n.getAttribute("id"));
+        },true) 
+    }
+</script>
+</html>
